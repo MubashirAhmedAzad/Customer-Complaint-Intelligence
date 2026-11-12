@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-SPK-004",
+  "issue": "Deposits and withdrawals",
+  "sub_issue": "Cash withdrawal",
+  "company": "Riverbend Consumer Finance",
+  "product": "Checking or savings account",
+  "complaint_count": 43,
+  "date_range": "2025-05-30 to 2025-06-29",
+  "anomaly_type": "Temporal Volume Surge",
+  "support_level": "Medium",
+  "pattern_description": "Surge in 'Cash withdrawal' complaints during 2025-06-29 (43 complaints, +40% over baseline, Z=2.5).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 422.",
+    "Primary submission channel: Web (41.2% of pattern records).",
+    "Sentiment breakdown: 69.4% Negative, 18.5% Neutral.",
+    "Unresolved / In-Review status rate: 39.8%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000055",
+    "SYN-CC-000516",
+    "SYN-CC-000563",
+    "SYN-CC-000914"
+  ],
+  "evidence_summary": "Analyzed 422 complaints. Primary channel: Web. Sentiment: 69% Negative. Representative IDs: SYN-CC-000055, SYN-CC-000516, SYN-CC-000563.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Deposits and withdrawals - Cash withdrawal' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'Cash withdrawal'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000055",
+      "date": "2023-12-29 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Phone",
+      "sentiment": "Positive",
+      "resolution_status": "Resolved",
+      "narrative": "I need help because the ATM transaction did not match the cash I received after the latest statement. The issue may already be improving, but I need confirmation. I need a clear explanation and correction. Please reverse any error if one is confirmed."
+    },
+    {
+      "complaint_id": "SYN-CC-000516",
+      "date": "2025-09-23 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Mobile app",
+      "sentiment": "Neutral",
+      "resolution_status": "Closed with explanation",
+      "narrative": "Please review why a cash withdrawal problem is showing on my account after checking the app. I am requesting clarification before taking further action. I have not received a useful resolution yet. I am asking for a written explanation."
+    },
+    {
+      "complaint_id": "SYN-CC-000563",
+      "date": "2023-07-17 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Mobile app",
+      "sentiment": "Neutral",
+      "resolution_status": "Closed with explanation",
+      "narrative": "I am concerned because the ATM transaction did not match the cash I received after checking the app. I am requesting clarification before taking further action. I am worried this could affect my credit record. Please investigate and provide the next steps."
+    },
+    {
+      "complaint_id": "SYN-CC-000914",
+      "date": "2023-05-12 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Mail",
+      "sentiment": "Negative",
+      "resolution_status": "Unresolved",
+      "narrative": "I am reporting that a cash withdrawal problem is showing on my account after checking the app. This situation has been frustrating and needs attention. I have not received a useful resolution yet. Please investigate and provide the next steps."
+    }
+  ]
+}

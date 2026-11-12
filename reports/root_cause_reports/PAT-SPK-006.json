@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-SPK-006",
+  "issue": "Fees",
+  "sub_issue": "Overdraft fee",
+  "company": "Riverbend Consumer Finance",
+  "product": "Checking or savings account",
+  "complaint_count": 31,
+  "date_range": "2025-04-18 to 2025-05-18",
+  "anomaly_type": "Temporal Volume Surge",
+  "support_level": "Medium",
+  "pattern_description": "Surge in 'Overdraft fee' complaints during 2025-05-18 (31 complaints, +46% over baseline, Z=2.5).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 434.",
+    "Primary submission channel: Web (39.2% of pattern records).",
+    "Sentiment breakdown: 65.7% Negative, 24.0% Neutral.",
+    "Unresolved / In-Review status rate: 45.4%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000300",
+    "SYN-CC-000525",
+    "SYN-CC-000553",
+    "SYN-CC-000580"
+  ],
+  "evidence_summary": "Analyzed 434 complaints. Primary channel: Web. Sentiment: 66% Negative. Representative IDs: SYN-CC-000300, SYN-CC-000525, SYN-CC-000553.",
+  "possible_root_cause": "[Hypothesis - Operational] A recent system update or processing batch run on or around 2025-05-18 may have introduced a discrepancy in how available balance calculations or transaction posting orders are executed, leading to unexpected overdraft fee assessments despite customers believing funds were sufficient.",
+  "recommended_investigation": "1. Audit the core banking transaction processing logs and batch posting schedules for May 17-18, 2025, to identify any changes in transaction re-ordering or ledger settlement logic.\n2. Review recent code deployments and configuration changes in the automated fee-assessment engine to check for logic flaws regarding available balance definitions.\n3. Pull a random sample of the 31 surging complaints to cross-reference customer ledger timestamps against support interaction logs to verify if pending transaction visibility discrepancies caused the disputed fees.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000300",
+      "date": "2023-12-20 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Phone",
+      "sentiment": "Negative",
+      "resolution_status": "Unresolved",
+      "narrative": "I am reporting that an overdraft fee was applied even though I believed funds were available when I contacted support. This situation has been frustrating and needs attention. The information shown does not match my records. I would like the account history checked."
+    },
+    {
+      "complaint_id": "SYN-CC-000525",
+      "date": "2024-01-24 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Web",
+      "sentiment": "Negative",
+      "resolution_status": "In review",
+      "narrative": "I am concerned because an overdraft fee was applied even though I believed funds were available during the past two billing cycles. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. I would like the account history checked."
+    },
+    {
+      "complaint_id": "SYN-CC-000553",
+      "date": "2023-10-04 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Web",
+      "sentiment": "Neutral",
+      "resolution_status": "In review",
+      "narrative": "Please review why I was assessed an overdraft fee that I want reviewed after the latest statement. I am requesting clarification before taking further action. I need a clear explanation and correction. I would like the account history checked."
+    },
+    {
+      "complaint_id": "SYN-CC-000580",
+      "date": "2025-10-16 00:00:00",
+      "company": "Riverbend Consumer Finance",
+      "product": "Checking or savings account",
+      "channel": "Mobile app",
+      "sentiment": "Negative",
+      "resolution_status": "Unresolved",
+      "narrative": "I am disputing the fact that I was assessed an overdraft fee that I want reviewed this week. This situation has been frustrating and needs attention. This has made it difficult to manage my budget. Please reverse any error if one is confirmed."
+    }
+  ]
+}

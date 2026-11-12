@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-CONC-003",
+  "issue": "Card activation",
+  "sub_issue": "General / Cross-category",
+  "company": "Summit Path Payments",
+  "product": "Prepaid card",
+  "complaint_count": 122,
+  "date_range": "Overall Observation Period (2023-2025)",
+  "anomaly_type": "Disproportionate Company/Product Concentration",
+  "support_level": "Medium",
+  "pattern_description": "'Summit Path Payments' exhibits 19.8% of its 'Prepaid card' complaints under 'Card activation' (expected baseline: 1.0%, ratio 20.7x).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 122.",
+    "Primary submission channel: Web (41.8% of pattern records).",
+    "Sentiment breakdown: 59.0% Negative, 27.0% Neutral.",
+    "Unresolved / In-Review status rate: 45.9%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000554",
+    "SYN-CC-000943",
+    "SYN-CC-001272",
+    "SYN-CC-001304"
+  ],
+  "evidence_summary": "Analyzed 122 complaints. Primary channel: Web. Sentiment: 59% Negative. Representative IDs: SYN-CC-000554, SYN-CC-000943, SYN-CC-001272.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Card activation - General / Cross-category' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'General / Cross-category'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000554",
+      "date": "2025-09-21 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Prepaid card",
+      "channel": "Web",
+      "sentiment": "Positive",
+      "resolution_status": "Closed with explanation",
+      "narrative": "I am reporting that the prepaid card will not activate since my last payment. The issue may already be improving, but I need confirmation. I would like the matter reviewed promptly. Please investigate and provide the next steps."
+    },
+    {
+      "complaint_id": "SYN-CC-000943",
+      "date": "2025-02-08 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Prepaid card",
+      "channel": "Mobile app",
+      "sentiment": "Neutral",
+      "resolution_status": "Resolved",
+      "narrative": "I am writing because card activation failed even after I followed the instructions when I contacted support. I am requesting clarification before taking further action. I have not received a useful resolution yet. Please correct the record and confirm the outcome."
+    },
+    {
+      "complaint_id": "SYN-CC-001272",
+      "date": "2025-10-03 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Prepaid card",
+      "channel": "Mail",
+      "sentiment": "Negative",
+      "resolution_status": "In review",
+      "narrative": "I need help because the prepaid card will not activate since my last payment. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. I would like the account history checked."
+    },
+    {
+      "complaint_id": "SYN-CC-001304",
+      "date": "2023-07-26 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Prepaid card",
+      "channel": "Phone",
+      "sentiment": "Negative",
+      "resolution_status": "In review",
+      "narrative": "Please review why the prepaid card will not activate during the past two billing cycles. This situation has been frustrating and needs attention. I have not received a useful resolution yet. Please investigate and provide the next steps."
+    }
+  ]
+}

@@ -11,15 +11,16 @@ venv/
 .ipynb_checkpoints/
 
 # Dataset
-data/raw/*
-!data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
 data/evaluation/*
 !data/evaluation/.gitkeep
+# Exclude huge test batch file (>100MB handled by LFS or ignored)
+data/batch_test_complaints_100mb.csv
 
 # Trained models
-models/*.joblib
+# Allow joblib models for Streamlit Cloud deployment
+!models/*.joblib
 models/embedding_model/
 
 # Vector database
@@ -27,7 +28,8 @@ vector_db/
 
 # Generated reports
 reports/model_evaluation/*
-reports/root_cause_reports/*
+!reports/root_cause_reports/*.json
+!reports/root_cause_reports/*.md
 
 # System
 .DS_Store

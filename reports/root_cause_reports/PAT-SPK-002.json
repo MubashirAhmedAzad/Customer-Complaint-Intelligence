@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-SPK-002",
+  "issue": "Deposits and withdrawals",
+  "sub_issue": "Cash withdrawal",
+  "company": "Harborline Credit",
+  "product": "Checking or savings account",
+  "complaint_count": 47,
+  "date_range": "2024-09-06 to 2024-10-06",
+  "anomaly_type": "Temporal Volume Surge",
+  "support_level": "Medium",
+  "pattern_description": "Surge in 'Cash withdrawal' complaints during 2024-10-06 (47 complaints, +66% over baseline, Z=2.8).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 430.",
+    "Primary submission channel: Web (44.9% of pattern records).",
+    "Sentiment breakdown: 67.0% Negative, 19.8% Neutral.",
+    "Unresolved / In-Review status rate: 41.9%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000235",
+    "SYN-CC-000443",
+    "SYN-CC-000722",
+    "SYN-CC-000820"
+  ],
+  "evidence_summary": "Analyzed 430 complaints. Primary channel: Web. Sentiment: 67% Negative. Representative IDs: SYN-CC-000235, SYN-CC-000443, SYN-CC-000722.",
+  "possible_root_cause": "[Hypothesis - Operational] The surge in cash withdrawal complaints on 2024-10-06 at Harborline Credit is likely driven by intermittent ATM network synchronization errors or cash dispenser calibration faults following an early October software deployment, leading to ledger-to-dispense discrepancies reported predominantly via the web channel.",
+  "recommended_investigation": "1. Audit core banking and ATM transaction logs for Harborline Credit specifically for the 48-hour window surrounding 2024-10-06 to identify discrepancy flags between requested and dispensed cash amounts.\n2. Review recent firmware or software patch deployments across the ATM network to check for known bugs affecting withdrawal ledger updates.\n3. Sample web-channel intake tickets associated with SYN-CC-000235 and similar IDs to correlate specific ATM terminal IDs with recurring hardware or software faults.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000235",
+      "date": "2023-06-08 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Checking or savings account",
+      "channel": "Web",
+      "sentiment": "Negative",
+      "resolution_status": "In review",
+      "narrative": "I am reporting that the ATM transaction did not match the cash I received since my last payment. This situation has been frustrating and needs attention. I am worried this could affect my credit record. Please reverse any error if one is confirmed."
+    },
+    {
+      "complaint_id": "SYN-CC-000443",
+      "date": "2023-11-26 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Checking or savings account",
+      "channel": "Web",
+      "sentiment": "Positive",
+      "resolution_status": "Resolved",
+      "narrative": "Please review why a cash withdrawal problem is showing on my account after the latest statement. The issue may already be improving, but I need confirmation. This has made it difficult to manage my budget. Please reverse any error if one is confirmed."
+    },
+    {
+      "complaint_id": "SYN-CC-000722",
+      "date": "2025-01-29 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Checking or savings account",
+      "channel": "Web",
+      "sentiment": "Neutral",
+      "resolution_status": "Closed with explanation",
+      "narrative": "I am writing because a cash withdrawal problem is showing on my account during the past two billing cycles. I am requesting clarification before taking further action. I am worried this could affect my credit record. Please correct the record and confirm the outcome."
+    },
+    {
+      "complaint_id": "SYN-CC-000820",
+      "date": "2024-09-02 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Checking or savings account",
+      "channel": "Mobile app",
+      "sentiment": "Positive",
+      "resolution_status": "In review",
+      "narrative": "I am disputing the fact that a cash withdrawal problem is showing on my account after the latest statement. The issue may already be improving, but I need confirmation. This has made it difficult to manage my budget. Please reverse any error if one is confirmed."
+    }
+  ]
+}

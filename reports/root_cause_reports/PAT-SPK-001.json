@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-SPK-001",
+  "issue": "Account management",
+  "sub_issue": "Account closure",
+  "company": "Summit Path Payments",
+  "product": "Checking or savings account",
+  "complaint_count": 38,
+  "date_range": "2023-05-05 to 2023-06-04",
+  "anomaly_type": "Temporal Volume Surge",
+  "support_level": "Medium",
+  "pattern_description": "Surge in 'Account closure' complaints during 2023-06-04 (38 complaints, +65% over baseline, Z=2.8).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 449.",
+    "Primary submission channel: Web (42.5% of pattern records).",
+    "Sentiment breakdown: 66.1% Negative, 23.2% Neutral.",
+    "Unresolved / In-Review status rate: 44.3%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000299",
+    "SYN-CC-000691",
+    "SYN-CC-000872",
+    "SYN-CC-001465"
+  ],
+  "evidence_summary": "Analyzed 449 complaints. Primary channel: Web. Sentiment: 66% Negative. Representative IDs: SYN-CC-000299, SYN-CC-000691, SYN-CC-000872.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Account management - Account closure' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'Account closure'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000299",
+      "date": "2023-11-08 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Checking or savings account",
+      "channel": "Mobile app",
+      "sentiment": "Negative",
+      "resolution_status": "Unresolved",
+      "narrative": "I am concerned because my account was closed or changed without a clear explanation after the latest statement. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. Please correct the record and confirm the outcome."
+    },
+    {
+      "complaint_id": "SYN-CC-000691",
+      "date": "2023-10-17 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Checking or savings account",
+      "channel": "Mobile app",
+      "sentiment": "Negative",
+      "resolution_status": "Resolved",
+      "narrative": "I am concerned because the account status does not match what I was told since my last payment. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. Please correct the record and confirm the outcome."
+    },
+    {
+      "complaint_id": "SYN-CC-000872",
+      "date": "2024-10-10 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Checking or savings account",
+      "channel": "Web",
+      "sentiment": "Neutral",
+      "resolution_status": "Closed with explanation",
+      "narrative": "Please review why the account status does not match what I was told when I contacted support. I am requesting clarification before taking further action. The information shown does not match my records. I am asking for a written explanation."
+    },
+    {
+      "complaint_id": "SYN-CC-001465",
+      "date": "2025-09-07 00:00:00",
+      "company": "Summit Path Payments",
+      "product": "Checking or savings account",
+      "channel": "Web",
+      "sentiment": "Negative",
+      "resolution_status": "Resolved",
+      "narrative": "I am reporting that the account status does not match what I was told when I contacted support. This situation has been frustrating and needs attention. I need a clear explanation and correction. Please correct the record and confirm the outcome."
+    }
+  ]
+}

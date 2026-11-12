@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-CONC-004",
+  "issue": "Card activation",
+  "sub_issue": "General / Cross-category",
+  "company": "Cedar Ridge Bank",
+  "product": "Prepaid card",
+  "complaint_count": 113,
+  "date_range": "Overall Observation Period (2023-2025)",
+  "anomaly_type": "Disproportionate Company/Product Concentration",
+  "support_level": "Medium",
+  "pattern_description": "'Cedar Ridge Bank' exhibits 19.1% of its 'Prepaid card' complaints under 'Card activation' (expected baseline: 1.0%, ratio 19.9x).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 113.",
+    "Primary submission channel: Web (43.4% of pattern records).",
+    "Sentiment breakdown: 62.8% Negative, 21.2% Neutral.",
+    "Unresolved / In-Review status rate: 48.7%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000506",
+    "SYN-CC-001379",
+    "SYN-CC-002039",
+    "SYN-CC-002341"
+  ],
+  "evidence_summary": "Analyzed 113 complaints. Primary channel: Web. Sentiment: 63% Negative. Representative IDs: SYN-CC-000506, SYN-CC-001379, SYN-CC-002039.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Card activation - General / Cross-category' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'General / Cross-category'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000506",
+      "date": "2025-03-16 00:00:00",
+      "company": "Cedar Ridge Bank",
+      "product": "Prepaid card",
+      "channel": "Web",
+      "sentiment": "Negative",
+      "resolution_status": "Unresolved",
+      "narrative": "Please review why card activation failed even after I followed the instructions this week. This situation has been frustrating and needs attention. I need a clear explanation and correction. Please reverse any error if one is confirmed."
+    },
+    {
+      "complaint_id": "SYN-CC-001379",
+      "date": "2024-06-23 00:00:00",
+      "company": "Cedar Ridge Bank",
+      "product": "Prepaid card",
+      "channel": "Mobile app",
+      "sentiment": "Negative",
+      "resolution_status": "Resolved",
+      "narrative": "I am reporting that the prepaid card will not activate during the past two billing cycles. This situation has been frustrating and needs attention. I am worried this could affect my credit record. I am asking for a written explanation."
+    },
+    {
+      "complaint_id": "SYN-CC-002039",
+      "date": "2025-05-09 00:00:00",
+      "company": "Cedar Ridge Bank",
+      "product": "Prepaid card",
+      "channel": "Web",
+      "sentiment": "Positive",
+      "resolution_status": "Resolved",
+      "narrative": "I am writing because card activation failed even after I followed the instructions after the latest statement. The issue may already be improving, but I need confirmation. The information shown does not match my records. I would like the account history checked."
+    },
+    {
+      "complaint_id": "SYN-CC-002341",
+      "date": "2023-10-18 00:00:00",
+      "company": "Cedar Ridge Bank",
+      "product": "Prepaid card",
+      "channel": "Mobile app",
+      "sentiment": "Negative",
+      "resolution_status": "In review",
+      "narrative": "Please review why the prepaid card will not activate this week. This situation has been frustrating and needs attention. The information shown does not match my records. Please reverse any error if one is confirmed."
+    }
+  ]
+}

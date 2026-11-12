@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-CONC-002",
+  "issue": "Card activation",
+  "sub_issue": "General / Cross-category",
+  "company": "Blue Mesa Servicing",
+  "product": "Prepaid card",
+  "complaint_count": 135,
+  "date_range": "Overall Observation Period (2023-2025)",
+  "anomaly_type": "Disproportionate Company/Product Concentration",
+  "support_level": "Medium",
+  "pattern_description": "'Blue Mesa Servicing' exhibits 21.3% of its 'Prepaid card' complaints under 'Card activation' (expected baseline: 1.0%, ratio 22.3x).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 135.",
+    "Primary submission channel: Web (43.0% of pattern records).",
+    "Sentiment breakdown: 66.7% Negative, 21.5% Neutral.",
+    "Unresolved / In-Review status rate: 44.4%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-002079",
+    "SYN-CC-002731",
+    "SYN-CC-003540",
+    "SYN-CC-004675"
+  ],
+  "evidence_summary": "Analyzed 135 complaints. Primary channel: Web. Sentiment: 67% Negative. Representative IDs: SYN-CC-002079, SYN-CC-002731, SYN-CC-003540.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Card activation - General / Cross-category' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'General / Cross-category'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-002079",
+      "date": "2025-05-18 00:00:00",
+      "company": "Blue Mesa Servicing",
+      "product": "Prepaid card",
+      "channel": "Web",
+      "sentiment": "Negative",
+      "resolution_status": "Unresolved",
+      "narrative": "I need help because card activation failed even after I followed the instructions during the past two billing cycles. This situation has been frustrating and needs attention. I have not received a useful resolution yet. Please correct the record and confirm the outcome."
+    },
+    {
+      "complaint_id": "SYN-CC-002731",
+      "date": "2025-05-22 00:00:00",
+      "company": "Blue Mesa Servicing",
+      "product": "Prepaid card",
+      "channel": "Email",
+      "sentiment": "Neutral",
+      "resolution_status": "Unresolved",
+      "narrative": "I am disputing the fact that card activation failed even after I followed the instructions when I contacted support. I am requesting clarification before taking further action. I would like the matter reviewed promptly. Please investigate and provide the next steps."
+    },
+    {
+      "complaint_id": "SYN-CC-003540",
+      "date": "2025-01-04 00:00:00",
+      "company": "Blue Mesa Servicing",
+      "product": "Prepaid card",
+      "channel": "Email",
+      "sentiment": "Neutral",
+      "resolution_status": "Closed with explanation",
+      "narrative": "I am reporting that card activation failed even after I followed the instructions when I contacted support. I am requesting clarification before taking further action. I am worried this could affect my credit record. Please investigate and provide the next steps."
+    },
+    {
+      "complaint_id": "SYN-CC-004675",
+      "date": "2025-06-20 00:00:00",
+      "company": "Blue Mesa Servicing",
+      "product": "Prepaid card",
+      "channel": "Mail",
+      "sentiment": "Negative",
+      "resolution_status": "In review",
+      "narrative": "I need help because the prepaid card will not activate after the latest statement. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. Please reverse any error if one is confirmed."
+    }
+  ]
+}

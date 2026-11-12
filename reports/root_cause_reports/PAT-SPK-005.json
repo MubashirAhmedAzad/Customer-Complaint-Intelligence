@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-SPK-005",
+  "issue": "Credit reporting",
+  "sub_issue": "Incorrect account information",
+  "company": "Harborline Credit",
+  "product": "Mortgage",
+  "complaint_count": 42,
+  "date_range": "2024-03-01 to 2024-03-31",
+  "anomaly_type": "Temporal Volume Surge",
+  "support_level": "Medium",
+  "pattern_description": "Surge in 'Incorrect account information' complaints during 2024-03-31 (42 complaints, +71% over baseline, Z=2.5).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 328.",
+    "Primary submission channel: Web (38.7% of pattern records).",
+    "Sentiment breakdown: 61.6% Negative, 27.1% Neutral.",
+    "Unresolved / In-Review status rate: 42.1%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000024",
+    "SYN-CC-000469",
+    "SYN-CC-000854",
+    "SYN-CC-001019"
+  ],
+  "evidence_summary": "Analyzed 328 complaints. Primary channel: Web. Sentiment: 62% Negative. Representative IDs: SYN-CC-000024, SYN-CC-000469, SYN-CC-000854.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Credit reporting - Incorrect account information' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'Incorrect account information'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000024",
+      "date": "2024-07-20 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Mortgage",
+      "channel": "Mobile app",
+      "sentiment": "Negative",
+      "resolution_status": "Unresolved",
+      "narrative": "I am disputing the fact that my credit report does not reflect the account status correctly during the past two billing cycles. This situation has been frustrating and needs attention. The information shown does not match my records. Please investigate and provide the next steps."
+    },
+    {
+      "complaint_id": "SYN-CC-000469",
+      "date": "2024-03-21 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Mortgage",
+      "channel": "In person",
+      "sentiment": "Negative",
+      "resolution_status": "Resolved",
+      "narrative": "I am writing because the account information reported to the credit bureau appears inaccurate when I contacted support. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. Please correct the record and confirm the outcome."
+    },
+    {
+      "complaint_id": "SYN-CC-000854",
+      "date": "2024-07-20 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Mortgage",
+      "channel": "Web",
+      "sentiment": "Neutral",
+      "resolution_status": "Resolved",
+      "narrative": "I am writing because my credit report does not reflect the account status correctly after the latest statement. I am requesting clarification before taking further action. I am worried this could affect my credit record. I am asking for a written explanation."
+    },
+    {
+      "complaint_id": "SYN-CC-001019",
+      "date": "2024-05-27 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Mortgage",
+      "channel": "Web",
+      "sentiment": "Neutral",
+      "resolution_status": "Resolved",
+      "narrative": "I need help because my credit report does not reflect the account status correctly during the past two billing cycles. I am requesting clarification before taking further action. This has made it difficult to manage my budget. Please reverse any error if one is confirmed."
+    }
+  ]
+}

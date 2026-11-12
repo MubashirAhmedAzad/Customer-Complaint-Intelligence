@@ -1,0 +1,70 @@
+{
+  "pattern_id": "PAT-CONC-001",
+  "issue": "Card activation",
+  "sub_issue": "General / Cross-category",
+  "company": "Harborline Credit",
+  "product": "Prepaid card",
+  "complaint_count": 132,
+  "date_range": "Overall Observation Period (2023-2025)",
+  "anomaly_type": "Disproportionate Company/Product Concentration",
+  "support_level": "Medium",
+  "pattern_description": "'Harborline Credit' exhibits 22.2% of its 'Prepaid card' complaints under 'Card activation' (expected baseline: 1.0%, ratio 23.2x).",
+  "observed_facts": [
+    "Total empirical complaints matching pattern criteria: 132.",
+    "Primary submission channel: Web (39.4% of pattern records).",
+    "Sentiment breakdown: 72.0% Negative, 22.7% Neutral.",
+    "Unresolved / In-Review status rate: 51.5%."
+  ],
+  "representative_complaint_ids": [
+    "SYN-CC-000513",
+    "SYN-CC-001155",
+    "SYN-CC-002179",
+    "SYN-CC-003361"
+  ],
+  "evidence_summary": "Analyzed 132 complaints. Primary channel: Web. Sentiment: 72% Negative. Representative IDs: SYN-CC-000513, SYN-CC-001155, SYN-CC-002179.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Card activation - General / Cross-category' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'General / Cross-category'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
+  "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
+  "verbatim_citations": [
+    {
+      "complaint_id": "SYN-CC-000513",
+      "date": "2025-08-09 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Prepaid card",
+      "channel": "Phone",
+      "sentiment": "Negative",
+      "resolution_status": "In review",
+      "narrative": "I need help because the prepaid card will not activate after the latest statement. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. Please investigate and provide the next steps."
+    },
+    {
+      "complaint_id": "SYN-CC-001155",
+      "date": "2025-11-29 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Prepaid card",
+      "channel": "Phone",
+      "sentiment": "Negative",
+      "resolution_status": "Resolved",
+      "narrative": "I am writing because the prepaid card will not activate after the latest statement. This situation has been frustrating and needs attention. The information shown does not match my records. I would like the account history checked."
+    },
+    {
+      "complaint_id": "SYN-CC-002179",
+      "date": "2024-07-24 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Prepaid card",
+      "channel": "Mail",
+      "sentiment": "Negative",
+      "resolution_status": "Resolved",
+      "narrative": "I need help because card activation failed even after I followed the instructions during the past two billing cycles. This situation has been frustrating and needs attention. I would like the matter reviewed promptly. I am asking for a written explanation."
+    },
+    {
+      "complaint_id": "SYN-CC-003361",
+      "date": "2024-02-19 00:00:00",
+      "company": "Harborline Credit",
+      "product": "Prepaid card",
+      "channel": "In person",
+      "sentiment": "Negative",
+      "resolution_status": "Closed with explanation",
+      "narrative": "I am disputing the fact that card activation failed even after I followed the instructions during the past two billing cycles. This situation has been frustrating and needs attention. This has made it difficult to manage my budget. Please reverse any error if one is confirmed."
+    }
+  ]
+}
