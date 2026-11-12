@@ -80,7 +80,7 @@ flowchart TD
 ### 1. Environment Setup
 ```bash
 # Clone or navigate to the repository
-cd customer-complaint-root-cause-classifier1
+cd Customer-Complaint-Root-Cause-Classifier-and-RAG-Intelligence-Engine
 
 # Activate virtual environment
 .\venv\Scripts\Activate.ps1   # Windows PowerShell

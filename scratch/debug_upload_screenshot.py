@@ -13,7 +13,7 @@ with sync_playwright() as p:
 
     # Set file input
     file_input = page.locator('input[type="file"]').first
-    file_input.set_input_files(r'C:\Users\mubas\PROJECTS\ML Project\customer-complaint-root-cause-classifier1\data\batch_test_complaints_100mb.csv')
+    file_input.set_input_files(r'C:\Users\mubas\PROJECTS\ML Project\Customer-Complaint-Root-Cause-Classifier-and-RAG-Intelligence-Engine\data\batch_test_complaints_100mb.csv')
     
     # Wait 8 seconds and screenshot
     page.wait_for_timeout(8000)
