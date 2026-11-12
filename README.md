@@ -11,14 +11,14 @@ Built with Python, Scikit-Learn, Google Gemini (gemini-2.0-flash / gemini-1.5-fl
 > 📺 **Watch the end-to-end walkthrough demonstrating all 8 analytics modules, live classification, root-cause anomaly detection, and RAG assistant:**
 
 <div align="center">
-  <video src="recordings/Customer%20Complaint%20Root-Cause%20Classifier%20%26%20RAG%20Intelligence%20Engine.mp4" controls="controls" width="100%" style="max-height: 520px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-    <p>Your browser does not support the video tag. <a href="recordings/Customer%20Complaint%20Root-Cause%20Classifier%20%26%20RAG%20Intelligence%20Engine.mp4">Click here to download and view the demo video</a>.</p>
+  <video src="https://github.com/MubashirAhmedAzad/Customer-Complaint-Root-Cause-Classifier-and-RAG-Intelligence-Engine/raw/main/recordings/Customer%20Complaint%20Root-Cause%20Classifier%20%26%20RAG%20Intelligence%20Engine.mp4" controls="controls" width="100%" style="max-height: 520px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+    <p>Your browser does not support inline video playback. <a href="https://github.com/MubashirAhmedAzad/Customer-Complaint-Root-Cause-Classifier-and-RAG-Intelligence-Engine/blob/main/recordings/Customer%20Complaint%20Root-Cause%20Classifier%20%26%20RAG%20Intelligence%20Engine.mp4">Click here to view/play the demo video on GitHub</a>.</p>
   </video>
 </div>
 
 <p align="center">
-  <a href="recordings/Customer%20Complaint%20Root-Cause%20Classifier%20%26%20RAG%20Intelligence%20Engine.mp4">
-    <img src="https://img.shields.io/badge/▶_Watch_Full_Demo-Video_(.mp4)-blue?style=for-the-badge&logo=mediafire" alt="Watch Demo Video"/>
+  <a href="https://github.com/MubashirAhmedAzad/Customer-Complaint-Root-Cause-Classifier-and-RAG-Intelligence-Engine/blob/main/recordings/Customer%20Complaint%20Root-Cause%20Classifier%20%26%20RAG%20Intelligence%20Engine.mp4">
+    <img src="https://img.shields.io/badge/▶_Watch_Walkthrough_Video-GitHub_LFS-blue?style=for-the-badge&logo=github" alt="Watch Demo Video"/>
   </a>
 </p>
 
