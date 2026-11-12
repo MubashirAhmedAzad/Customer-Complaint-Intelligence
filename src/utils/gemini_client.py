@@ -25,37 +25,56 @@ logger = get_logger(__name__)
 
 
 def get_gemini_api_key() -> Optional[str]:
-    """Retrieve Gemini or Google API key from session state, environment, or Streamlit secrets."""
-    # 1. Check Streamlit session_state (user-entered key in UI)
+    """Retrieve Gemini or Google API key from session state or environment."""
+    # 1. In Streamlit UI: user input strictly controls the active key
     try:
         import streamlit as st
-        session_key = st.session_state.get("custom_gemini_api_key") or st.session_state.get("gemini_api_key")
-        if session_key and str(session_key).strip():
-            return str(session_key).strip()
+        if hasattr(st, "session_state"):
+            if "custom_gemini_api_key" in st.session_state:
+                session_key = st.session_state.get("custom_gemini_api_key")
+                if session_key and str(session_key).strip():
+                    return str(session_key).strip()
+                # User explicitly removed or left key empty in UI -> return None (Disconnected)
+                return None
     except Exception:
         pass
 
-    # 2. Check environment variables (.env / local environment)
+    # 2. Check environment variables (.env / CLI scripts when not in Streamlit UI)
     key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     if key and key.strip():
         return key.strip()
 
-    # 3. Check Streamlit Cloud secrets (st.secrets)
-    try:
-        import streamlit as st
-        if hasattr(st, "secrets"):
-            if "GEMINI_API_KEY" in st.secrets:
-                s_key = str(st.secrets["GEMINI_API_KEY"]).strip()
-                if s_key:
-                    return s_key
-            if "GOOGLE_API_KEY" in st.secrets:
-                s_key = str(st.secrets["GOOGLE_API_KEY"]).strip()
-                if s_key:
-                    return s_key
-    except Exception:
-        pass
-
     return None
+
+
+def validate_gemini_api_key(api_key: str) -> tuple[bool, str]:
+    """Validate a Gemini API key by pinging Google's Gemini models endpoint.
+
+    Returns
+    -------
+    tuple of (bool, str)
+        (True, 'Valid') or (False, error_message)
+    """
+    if not api_key or not str(api_key).strip():
+        return False, "API key cannot be empty."
+
+    import requests
+
+    key_clean = str(api_key).strip()
+    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={key_clean}"
+    try:
+        resp = requests.get(url, timeout=6)
+        if resp.status_code == 200:
+            return True, "Valid"
+        else:
+            try:
+                err_data = resp.json()
+                err_msg = err_data.get("error", {}).get("message", "API key rejected by Google.")
+            except Exception:
+                err_msg = f"HTTP {resp.status_code} Error"
+            return False, err_msg
+    except Exception as e:
+        return False, f"Connection error: {e}"
 
 
 def is_gemini_configured() -> bool:

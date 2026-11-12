@@ -44,10 +44,14 @@ if filter_product != "All Products":
     where_filter["product"] = filter_product
 where_filter = where_filter if where_filter else None
 
-# Sidebar: LLM Configuration & API Key Input
+# Sidebar: LLM Configuration & Temporary API Key Input
 st.sidebar.markdown("---")
 st.sidebar.header("⚡ LLM Configuration")
-from src.utils.gemini_client import is_gemini_configured, get_gemini_api_key
+from src.utils.gemini_client import (
+    is_gemini_configured,
+    get_gemini_api_key,
+    validate_gemini_api_key,
+)
 from config.settings import LLM_MODEL_NAME
 
 api_key_input = st.sidebar.text_input(
@@ -55,20 +59,42 @@ api_key_input = st.sidebar.text_input(
     value=st.session_state.get("custom_gemini_api_key", ""),
     type="password",
     placeholder="AIzaSy...",
-    help="Paste your Google Gemini API key to activate live LLM synthesis.",
+    help="Enter your Google Gemini API key to activate live LLM synthesis for this session.",
+    key="gemini_key_input_box",
 )
 
-if api_key_input.strip():
-    st.session_state["custom_gemini_api_key"] = api_key_input.strip()
-    os.environ["GEMINI_API_KEY"] = api_key_input.strip()
+cleaned_key = api_key_input.strip()
 
-if is_gemini_configured():
-    st.sidebar.success(f"🟢 **Google Gemini Connected**\nModel: `{LLM_MODEL_NAME}`")
-else:
+if not cleaned_key:
+    # Key was cleared or left empty -> Disconnect immediately!
+    st.session_state["custom_gemini_api_key"] = ""
+    st.session_state.pop("_validated_key_tuple", None)
+    if "GEMINI_API_KEY" in os.environ:
+        os.environ.pop("GEMINI_API_KEY", None)
     st.sidebar.info(
         f"🟡 **Offline Engine Active**\nModel target: `{LLM_MODEL_NAME}`\n\n"
         "Enter your Gemini API key in the box above to activate live AI generation."
     )
+else:
+    # Key is present -> Validate with Google Gemini
+    cached_val = st.session_state.get("_validated_key_tuple")
+    if not cached_val or cached_val[0] != cleaned_key:
+        with st.sidebar.status("Verifying API key...", expanded=False):
+            is_valid, err_msg = validate_gemini_api_key(cleaned_key)
+            st.session_state["_validated_key_tuple"] = (cleaned_key, is_valid, err_msg)
+    else:
+        _, is_valid, err_msg = cached_val
+
+    if is_valid:
+        st.session_state["custom_gemini_api_key"] = cleaned_key
+        os.environ["GEMINI_API_KEY"] = cleaned_key
+        st.sidebar.success(f"🟢 **Google Gemini Connected**\nModel: `{LLM_MODEL_NAME}`")
+    else:
+        st.session_state["custom_gemini_api_key"] = ""
+        if "GEMINI_API_KEY" in os.environ:
+            os.environ.pop("GEMINI_API_KEY", None)
+        st.sidebar.error(f"🔴 **Invalid API Key**\n{err_msg}")
+        st.sidebar.caption("Get a free key at [Google AI Studio](https://aistudio.google.com/app/apikey).")
 
 # Initialize session state chat history
 if "chat_history" not in st.session_state:
