@@ -15,8 +15,10 @@ data/processed/*
 !data/processed/.gitkeep
 data/evaluation/*
 !data/evaluation/.gitkeep
-# Exclude huge test batch file (>100MB handled by LFS or ignored)
+# Large test files and recordings (host on YouTube or GitHub Releases)
+recordings/
 data/batch_test_complaints_100mb.csv
+temp_test_clone/
 
 # Trained models
 # Allow joblib models for Streamlit Cloud deployment
