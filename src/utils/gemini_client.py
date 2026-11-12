@@ -25,10 +25,36 @@ logger = get_logger(__name__)
 
 
 def get_gemini_api_key() -> Optional[str]:
-    """Retrieve Gemini or Google API key from environment variables."""
+    """Retrieve Gemini or Google API key from session state, environment, or Streamlit secrets."""
+    # 1. Check Streamlit session_state (user-entered key in UI)
+    try:
+        import streamlit as st
+        session_key = st.session_state.get("custom_gemini_api_key") or st.session_state.get("gemini_api_key")
+        if session_key and str(session_key).strip():
+            return str(session_key).strip()
+    except Exception:
+        pass
+
+    # 2. Check environment variables (.env / local environment)
     key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     if key and key.strip():
         return key.strip()
+
+    # 3. Check Streamlit Cloud secrets (st.secrets)
+    try:
+        import streamlit as st
+        if hasattr(st, "secrets"):
+            if "GEMINI_API_KEY" in st.secrets:
+                s_key = str(st.secrets["GEMINI_API_KEY"]).strip()
+                if s_key:
+                    return s_key
+            if "GOOGLE_API_KEY" in st.secrets:
+                s_key = str(st.secrets["GOOGLE_API_KEY"]).strip()
+                if s_key:
+                    return s_key
+    except Exception:
+        pass
+
     return None
 
 

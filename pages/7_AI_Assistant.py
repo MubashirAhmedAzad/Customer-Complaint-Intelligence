@@ -5,6 +5,7 @@ Interactive natural language assistant for querying complaint records,
 combining exact analytical statistics with semantic vector search and citations.
 """
 
+import os
 import sys
 from pathlib import Path
 
@@ -43,18 +44,30 @@ if filter_product != "All Products":
     where_filter["product"] = filter_product
 where_filter = where_filter if where_filter else None
 
-# Sidebar: LLM Status
+# Sidebar: LLM Configuration & API Key Input
 st.sidebar.markdown("---")
 st.sidebar.header("⚡ LLM Configuration")
 from src.utils.gemini_client import is_gemini_configured, get_gemini_api_key
 from config.settings import LLM_MODEL_NAME
+
+api_key_input = st.sidebar.text_input(
+    "🔑 Enter Gemini API Key:",
+    value=st.session_state.get("custom_gemini_api_key", ""),
+    type="password",
+    placeholder="AIzaSy...",
+    help="Paste your Google Gemini API key to activate live LLM synthesis.",
+)
+
+if api_key_input.strip():
+    st.session_state["custom_gemini_api_key"] = api_key_input.strip()
+    os.environ["GEMINI_API_KEY"] = api_key_input.strip()
 
 if is_gemini_configured():
     st.sidebar.success(f"🟢 **Google Gemini Connected**\nModel: `{LLM_MODEL_NAME}`")
 else:
     st.sidebar.info(
         f"🟡 **Offline Engine Active**\nModel target: `{LLM_MODEL_NAME}`\n\n"
-        "To enable online Gemini synthesis, add `GEMINI_API_KEY=...` to your `.env` file."
+        "Enter your Gemini API key in the box above to activate live AI generation."
     )
 
 # Initialize session state chat history
