@@ -13,6 +13,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
+import ast
 import pandas as pd
 from typing import Dict, Any, Optional, List
 
@@ -59,7 +60,7 @@ def run_clustering_agent(
                     "theme_keywords": str(row["theme_keywords"]),
                     "complaint_count": int(row["complaint_count"]),
                     "share_pct": float(row["share_pct"]),
-                    "representative_complaint_ids": eval(row["representative_complaint_ids"]) if isinstance(row["representative_complaint_ids"], str) and row["representative_complaint_ids"].startswith("[") else [],
+                    "representative_complaint_ids": ast.literal_eval(row["representative_complaint_ids"]) if isinstance(row["representative_complaint_ids"], str) and row["representative_complaint_ids"].startswith("[") else [],
                 })
 
     # If no specific match, return top clusters overall
@@ -70,7 +71,7 @@ def run_clustering_agent(
                 "theme_keywords": str(row["theme_keywords"]),
                 "complaint_count": int(row["complaint_count"]),
                 "share_pct": float(row["share_pct"]),
-                "representative_complaint_ids": eval(row["representative_complaint_ids"]) if isinstance(row["representative_complaint_ids"], str) and row["representative_complaint_ids"].startswith("[") else [],
+                "representative_complaint_ids": ast.literal_eval(row["representative_complaint_ids"]) if isinstance(row["representative_complaint_ids"], str) and row["representative_complaint_ids"].startswith("[") else [],
             })
 
     top_keywords = list(set([
