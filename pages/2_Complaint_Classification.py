@@ -144,45 +144,11 @@ with tab_batch:
     st.subheader("Bulk Complaint Classification")
     st.markdown("Upload a CSV file containing an unstructured narrative column to categorize records in bulk.")
 
-    col_up, col_preset = st.columns([3, 2])
-    with col_up:
-        uploaded_file = st.file_uploader(
-            "Upload CSV file (supports .csv, .csv.gz, .zip):",
-            type=["csv", "gz", "zip"],
-            help="For faster uploads on cloud, upload a standard CSV or compressed .csv.gz file."
-        )
-    with col_preset:
-        st.markdown("<p style='margin-top:28px; font-weight:600; color:#9ca3af;'>⚡ Fast Cloud Demo Dataset</p>", unsafe_allow_html=True)
-        if st.button("🚀 Load Preloaded 5,000 Test Records", use_container_width=True):
-            from src.data.load_data import load_complaints
-            from src.data.clean_data import clean_complaints
-            sample_df = clean_complaints(load_complaints()).sample(5000, random_state=42).reset_index(drop=True)
-            st.session_state["batch_results_df"] = sample_df
-            st.session_state["batch_file_name"] = "preloaded_sample_5000.csv"
-            from src.utils.dataset_manager import ensure_dataset_schema
-            clean_df = ensure_dataset_schema(sample_df)
-            st.session_state["custom_test_df"] = clean_df
-            st.session_state["custom_test_name"] = "preloaded_sample_5000.csv"
-            st.session_state["active_custom_df"] = clean_df
-            st.session_state["active_dataset_name"] = "preloaded_sample_5000.csv"
-            st.session_state["selected_dataset_option"] = f"🧪 Test Data: preloaded_sample_5000.csv ({len(clean_df):,} records)"
-            for pk in ["main", "dashboard", "classification", "sentiment", "clustering", "root_cause", "trend_analytics", "ai_assistant", "model_eval"]:
-                st.session_state[f"dataset_selector_{pk}"] = st.session_state["selected_dataset_option"]
-            st.rerun()
+    uploaded_file = st.file_uploader("Upload CSV file:", type=["csv"])
 
     if uploaded_file is not None:
         try:
-            if uploaded_file.name.endswith(".zip"):
-                import zipfile
-                with zipfile.ZipFile(uploaded_file) as z:
-                    csv_names = [f for f in z.namelist() if f.endswith(".csv")]
-                    if csv_names:
-                        with z.open(csv_names[0]) as zf:
-                            batch_df = pd.read_csv(zf)
-                    else:
-                        batch_df = pd.read_csv(uploaded_file)
-            else:
-                batch_df = pd.read_csv(uploaded_file)
+            batch_df = pd.read_csv(uploaded_file)
         except UnicodeDecodeError:
             uploaded_file.seek(0)
             batch_df = pd.read_csv(uploaded_file, encoding="latin1")
