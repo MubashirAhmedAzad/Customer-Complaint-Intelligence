@@ -18,7 +18,10 @@ data/evaluation/*
 # Large test files and recordings (host on YouTube or GitHub Releases)
 recordings/
 data/batch_test_complaints_100mb.csv
+data/synthetic_customer_complaints_50000.csv
+data/test_synthetic_customer_complaints_100000.csv
 temp_test_clone/
+scratch/
 
 # Trained models
 # Allow joblib models for Streamlit Cloud deployment

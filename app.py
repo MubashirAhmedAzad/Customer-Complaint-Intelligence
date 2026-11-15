@@ -34,11 +34,18 @@ st.set_page_config(
 # Data Caching
 # ---------------------------------------------------------------------------
 
+from src.utils.dataset_manager import render_dataset_dropdown
+
 @st.cache_data
 def get_cached_complaints():
     return clean_complaints(load_complaints())
 
-df = get_cached_complaints()
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="home")
+if is_custom and custom_df is not None:
+    df = custom_df
+else:
+    df = get_cached_complaints()
+
 kpis = compute_executive_kpis(df)
 
 

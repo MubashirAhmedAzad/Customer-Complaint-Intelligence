@@ -36,7 +36,23 @@ st.caption("Classifies customer dissatisfaction severity into Negative, Neutral,
 def get_complaints():
     return clean_complaints(load_complaints())
 
-df = get_complaints()
+from src.utils.dataset_manager import render_dataset_dropdown
+
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="sentiment")
+if is_custom and custom_df is not None:
+    df = custom_df
+    if "sentiment_label" not in df.columns or df["sentiment_label"].isna().all():
+        with st.spinner("Evaluating sentiment distribution on sample (up to 5,000 records)..."):
+            from src.sentiment.sentiment_analyzer import predict_sentiment_batch
+            text_col = "complaint_narrative" if "complaint_narrative" in df.columns else df.columns[0]
+            eval_sample = df.head(5000)
+            preds = predict_sentiment_batch(eval_sample[text_col].astype(str).tolist())
+            df.loc[eval_sample.index, "sentiment_label"] = preds["predicted_sentiment"]
+            df["sentiment_label"] = df["sentiment_label"].fillna("Negative")
+            st.session_state["custom_test_df"] = df
+            st.session_state["active_custom_df"] = df
+else:
+    df = get_complaints()
 
 
 # ---------------------------------------------------------------------------

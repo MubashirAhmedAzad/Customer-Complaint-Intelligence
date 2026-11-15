@@ -142,6 +142,22 @@ def compute_channel_efficiency(df: pd.DataFrame) -> pd.DataFrame:
 def compute_executive_kpis(df: pd.DataFrame) -> Dict[str, Any]:
     """Calculate executive KPI summary metrics."""
     total = len(df)
+    if total == 0:
+        return {
+            "total_complaints": 0,
+            "resolution_rate_pct": 0.0,
+            "unresolved_count": 0,
+            "unresolved_rate_pct": 0.0,
+            "in_review_count": 0,
+            "in_review_rate_pct": 0.0,
+            "negative_sentiment_pct": 0.0,
+            "unique_companies": 0,
+            "unique_products": 0,
+            "unique_issues": 0,
+            "date_min": "N/A",
+            "date_max": "N/A",
+        }
+
     resolved_count = (df["resolution_status"].isin(["Resolved", "Closed with explanation"])).sum()
     unresolved_count = (df["resolution_status"] == "Unresolved").sum()
     in_review_count = (df["resolution_status"] == "In review").sum()

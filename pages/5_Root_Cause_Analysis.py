@@ -44,7 +44,49 @@ st.warning(
 
 REPORTS_PATH = REPORTS_DIR / "root_cause_reports"
 
-# Load existing reports or allow user to run on-demand
+from src.utils.dataset_manager import render_dataset_dropdown
+
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="root_cause")
+if is_custom and custom_df is not None:
+    st.subheader(f"🔍 Root Cause Findings for {custom_name}")
+    iss_col = "issue" if "issue" in custom_df.columns else ("predicted_issue" if "predicted_issue" in custom_df.columns else None)
+    sub_col = "sub_issue" if "sub_issue" in custom_df.columns else ("predicted_sub_issue" if "predicted_sub_issue" in custom_df.columns else None)
+
+    if iss_col:
+        top_driver = custom_df[iss_col].value_counts().head(1).index[0] if not custom_df.empty else "N/A"
+        top_sub = custom_df[sub_col].value_counts().head(1).index[0] if sub_col and not custom_df.empty else "N/A"
+
+        rc1, rc2, rc3 = st.columns(3)
+        rc1.metric("Primary Failure Mode", str(top_driver))
+        rc2.metric("Frequent Root Cause Driver", str(top_sub))
+        unres_pct = (custom_df["resolution_status"] == "Unresolved").mean() * 100 if "resolution_status" in custom_df.columns else 0.0
+        rc3.metric("Unresolved Risk Rate", f"{unres_pct:.1f}%")
+
+        st.markdown("---")
+        st.markdown("### 📋 Root Cause Diagnosis Cards (Test Dataset)")
+
+        group_cols = [c for c in [iss_col, sub_col] if c]
+        top_anomalies = custom_df.groupby(group_cols).size().reset_index(name="Volume").sort_values("Volume", ascending=False).head(5)
+
+        for i, row in top_anomalies.reset_index(drop=True).iterrows():
+            issue_name = row[iss_col]
+            sub_name = row[sub_col] if sub_col in row else "General"
+            vol = row["Volume"]
+            with st.container(border=True):
+                st.markdown(f"#### 🚨 Anomaly Pattern #{i+1}: `{issue_name}` $\\rightarrow$ `{sub_name}`")
+                c_vol, c_imp = st.columns([1, 3])
+                c_vol.metric("Flagged Volume", f"{vol:,} records")
+                prod_val = custom_df[custom_df[iss_col] == issue_name]['product'].iloc[0] if 'product' in custom_df.columns and not custom_df[custom_df[iss_col] == issue_name].empty else 'Consumer Products'
+                c_imp.markdown(f"""
+                - **Hypothesis**: Systemic operational friction identified in `{sub_name}` servicing workflow.
+                - **Primary Product Impacted**: {prod_val}
+                - **Recommended Action**: Audit automated rules for `{sub_name}` and initiate remediation review.
+                """)
+    st.stop()
+
+# ---------------------------------------------------------------------------
+# Default Training Dataset Root-Cause Investigation Reports
+# ---------------------------------------------------------------------------
 report_files = list(REPORTS_PATH.glob("*.json")) if REPORTS_PATH.exists() else []
 
 col_btn1, col_btn2 = st.columns([1, 4])

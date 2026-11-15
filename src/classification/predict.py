@@ -9,7 +9,11 @@ Provides functions to classify new complaint texts for:
 """
 
 import sys
+import warnings
 from pathlib import Path
+from sklearn.exceptions import InconsistentVersionWarning
+
+warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
 
 # Resolve project root and ensure it is on sys.path
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]

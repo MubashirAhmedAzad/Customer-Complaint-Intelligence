@@ -22,8 +22,8 @@
     "SYN-CC-000820"
   ],
   "evidence_summary": "Analyzed 430 complaints. Primary channel: Web. Sentiment: 67% Negative. Representative IDs: SYN-CC-000235, SYN-CC-000443, SYN-CC-000722.",
-  "possible_root_cause": "[Hypothesis - Operational] The surge in cash withdrawal complaints on 2024-10-06 at Harborline Credit is likely driven by intermittent ATM network synchronization errors or cash dispenser calibration faults following an early October software deployment, leading to ledger-to-dispense discrepancies reported predominantly via the web channel.",
-  "recommended_investigation": "1. Audit core banking and ATM transaction logs for Harborline Credit specifically for the 48-hour window surrounding 2024-10-06 to identify discrepancy flags between requested and dispensed cash amounts.\n2. Review recent firmware or software patch deployments across the ATM network to check for known bugs affecting withdrawal ledger updates.\n3. Sample web-channel intake tickets associated with SYN-CC-000235 and similar IDs to correlate specific ATM terminal IDs with recurring hardware or software faults.",
+  "possible_root_cause": "[Hypothesis - Operational] Recurring friction in 'Deposits and withdrawals - Cash withdrawal' likely driven by customer communication ambiguity, backend reconciliation latency, or operational process exceptions not handled in self-service channels.",
+  "recommended_investigation": "1. Audit frontline customer service call recordings regarding 'Cash withdrawal'.\n2. Review backend system event logs for failure/retry states during the observed timeframe.\n3. Evaluate customer notification copy clarity regarding terms, timelines, and resolution pathways.",
   "methodological_disclaimer": "DISCLAIMER: The possible root cause stated above is a theoretical hypothesis generated from statistical patterns and complaint narratives. It has NOT been verified by internal systems audits and must be confirmed through targeted technical logs review.",
   "verbatim_citations": [
     {

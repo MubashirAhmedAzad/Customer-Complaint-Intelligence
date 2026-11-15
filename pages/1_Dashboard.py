@@ -35,7 +35,14 @@ st.caption("Strategic overview of customer dissatisfaction signals, issue driver
 def get_data():
     return clean_complaints(load_complaints())
 
-df = get_data()
+from src.utils.dataset_manager import render_dataset_dropdown
+
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="dashboard")
+if is_custom and custom_df is not None:
+    df = custom_df
+else:
+    df = get_data()
+
 kpis = compute_executive_kpis(df)
 
 
@@ -153,25 +160,32 @@ search_term = st.text_input("Filter complaints by narrative keyword or ID:")
 display_df = df
 if search_term:
     display_df = display_df[
-        display_df["complaint_narrative"].str.contains(search_term, case=False, na=False)
-        | display_df["complaint_id"].str.contains(search_term, case=False, na=False)
+        display_df["complaint_narrative"].astype(str).str.contains(search_term, case=False, na=False, regex=False)
+        | display_df["complaint_id"].astype(str).str.contains(search_term, case=False, na=False, regex=False)
     ]
 
+desired_cols = [
+    "complaint_id", "date_received", "company", "product", "issue", "sub_issue", "channel", "sentiment_label", "resolution_status", "complaint_narrative"
+]
+active_cols = [c for c in desired_cols if c in display_df.columns]
+all_cfg = {
+    "complaint_id": st.column_config.TextColumn("ID", width="small"),
+    "date_received": st.column_config.DateColumn("Date", format="YYYY-MM-DD", width="small"),
+    "company": st.column_config.TextColumn("Institution", width="medium"),
+    "product": st.column_config.TextColumn("Product", width="medium"),
+    "issue": st.column_config.TextColumn("Issue", width="medium"),
+    "sub_issue": st.column_config.TextColumn("Sub-Issue", width="medium"),
+    "channel": st.column_config.TextColumn("Channel", width="small"),
+    "sentiment_label": st.column_config.TextColumn("Sentiment", width="small"),
+    "resolution_status": st.column_config.TextColumn("Status", width="small"),
+    "complaint_narrative": st.column_config.TextColumn("Narrative", width=2800),
+}
+cfg = {k: v for k, v in all_cfg.items() if k in active_cols}
+
 st.dataframe(
-    display_df.head(50)[[
-        "complaint_id", "date_received", "company", "product", "issue", "sub_issue", "channel", "sentiment_label", "resolution_status", "complaint_narrative"
-    ]],
-    column_config={
-        "complaint_id": "ID",
-        "date_received": "Date",
-        "company": "Institution",
-        "product": "Product",
-        "issue": "Issue",
-        "sub_issue": "Sub-Issue",
-        "sentiment_label": "Sentiment",
-        "resolution_status": "Status",
-        "complaint_narrative": st.column_config.TextColumn("Narrative", width="large"),
-    },
+    display_df.head(50)[active_cols],
+    column_config=cfg,
+    use_container_width=True,
     hide_index=True,
 )
 st.caption(f"Showing up to 50 of {len(display_df):,} matching records.")

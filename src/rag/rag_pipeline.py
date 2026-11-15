@@ -179,6 +179,7 @@ def query_rag_assistant(
     n_results: int = 4,
     metadata_filter: Optional[Dict[str, Any]] = None,
     use_llm: bool = True,
+    custom_df: Optional[pd.DataFrame] = None,
 ) -> Dict[str, Any]:
     """Execute end-to-end question answering against complaints database and vector store.
 
@@ -205,7 +206,7 @@ def query_rag_assistant(
         }
     """
     logger.info("RAG query received: '%s'", query)
-    retriever = get_hybrid_retriever()
+    retriever = HybridRetriever(df=custom_df) if custom_df is not None else get_hybrid_retriever()
 
     # 1. Hybrid Retrieval
     retrieval_pack = retriever.retrieve(

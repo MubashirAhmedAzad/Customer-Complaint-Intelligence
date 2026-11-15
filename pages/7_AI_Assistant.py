@@ -23,6 +23,11 @@ from src.rag.rag_pipeline import query_rag_assistant
 st.set_page_config(page_title="AI Assistant", page_icon="💬", layout="wide")
 
 st.title("💬 Customer Complaint AI Assistant (RAG)")
+
+from src.utils.dataset_manager import render_dataset_dropdown
+
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="ai_assistant")
+
 st.markdown(
     """
     **Evidence-Backed Natural Language Question Answering**  
@@ -34,7 +39,13 @@ st.markdown(
 
 # Sidebar: Filters & Configuration
 st.sidebar.header("🎯 Retrieval Filters")
-filter_company = st.sidebar.selectbox("Filter by Company:", ["All Companies", "Blue Mesa Servicing", "Cedar Ridge Bank", "Harborline Credit", "Maple Street Card Services", "Northstar Financial Services", "Pioneer Lending Group", "Riverbend Consumer Finance", "Summit Path Payments"])
+DEFAULT_COMPANIES = ["Blue Mesa Servicing", "Cedar Ridge Bank", "Harborline Credit", "Maple Street Card Services", "Northstar Financial Services", "Pioneer Lending Group", "Riverbend Consumer Finance", "Summit Path Payments"]
+if custom_df is not None and "company" in custom_df.columns:
+    companies_list = sorted(custom_df["company"].dropna().unique().tolist())
+else:
+    companies_list = DEFAULT_COMPANIES
+
+filter_company = st.sidebar.selectbox("Filter by Company:", ["All Companies"] + companies_list)
 filter_product = st.sidebar.selectbox("Filter by Product:", ["All Products"] + PRODUCT_LABELS)
 
 where_filter = {}
@@ -153,6 +164,7 @@ if active_query:
                 query=active_query,
                 n_results=4,
                 metadata_filter=where_filter,
+                custom_df=st.session_state.get("active_custom_df"),
             )
 
             # Display query type badge

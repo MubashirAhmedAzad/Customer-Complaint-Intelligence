@@ -31,9 +31,54 @@ st.caption(
 
 
 # ---------------------------------------------------------------------------
-# Load Precomputed Cluster Data
+# Load Precomputed Cluster Data or Dynamic Test Clustering
 # ---------------------------------------------------------------------------
 
+from src.utils.dataset_manager import render_dataset_dropdown
+
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="clustering")
+if is_custom and custom_df is not None:
+    st.subheader(f"🧩 Discovered Semantic Themes in {custom_name}")
+    iss_col = "issue" if "issue" in custom_df.columns else ("predicted_issue" if "predicted_issue" in custom_df.columns else None)
+    if iss_col:
+        theme_counts = custom_df[iss_col].value_counts().reset_index()
+        theme_counts.columns = ["Theme", "Volume"]
+
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Analyzed Test Records", f"{len(custom_df):,}")
+        m2.metric("Discovered Themes", f"{len(theme_counts):,}")
+        m3.metric("Top Theme", theme_counts.iloc[0]["Theme"] if not theme_counts.empty else "N/A")
+
+        fig_theme = px.bar(
+            theme_counts.head(10),
+            x="Volume",
+            y="Theme",
+            orientation="h",
+            color="Volume",
+            color_continuous_scale="Purples",
+            title=f"Top Discovered Themes in {custom_name}",
+            height=380,
+        )
+        fig_theme.update_layout(yaxis=dict(autorange="reversed"))
+        st.plotly_chart(fig_theme, use_container_width=True)
+
+        st.markdown("---")
+        st.subheader("📑 Test Narratives by Theme")
+        sel_theme = st.selectbox("Select Theme to Inspect:", theme_counts["Theme"].tolist())
+        text_col = "complaint_narrative" if "complaint_narrative" in custom_df.columns else custom_df.columns[0]
+        theme_records = custom_df[custom_df[iss_col] == sel_theme]
+        for idx, row in theme_records.head(5).iterrows():
+            cid = row.get("complaint_id", f"TEST-{idx+1}")
+            comp = row.get("company", "Institution")
+            with st.expander(f"Record [{cid}] — {comp}"):
+                st.write(row[text_col])
+    else:
+        st.info("💡 To view discovered themes for this test dataset, categorize it first under **Complaint Classification** (Module 2) or ensure your CSV has an 'issue' column.")
+    st.stop()
+
+# ---------------------------------------------------------------------------
+# Load Precomputed Cluster Data (Default Training Dataset)
+# ---------------------------------------------------------------------------
 cluster_csv = REPORTS_DIR / "sample_clustered_complaints.csv"
 topics_csv = REPORTS_DIR / "cluster_topics.csv"
 

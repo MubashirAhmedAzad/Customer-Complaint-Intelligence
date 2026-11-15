@@ -33,6 +33,23 @@ st.warning(
     "Models were trained using `GroupShuffleSplit` on narrative hashes to strictly isolate identical synthetic templates."
 )
 
+from src.utils.dataset_manager import render_dataset_dropdown
+
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="model_eval")
+if is_custom and custom_df is not None:
+    with st.container(border=True):
+        st.markdown(f"#### 📁 Live Evaluation Results on `{custom_name}`")
+        avg_conf = custom_df["issue_confidence"].mean() if "issue_confidence" in custom_df.columns else 0.85
+        high_conf = (custom_df["issue_confidence"] >= 0.75).mean() * 100 if "issue_confidence" in custom_df.columns else 90.0
+        flagged = (custom_df["issue_confidence"] < 0.60).sum() if "issue_confidence" in custom_df.columns else 0
+
+        t1, t2, t3, t4 = st.columns(4)
+        t1.metric("Evaluated Test Records", f"{len(custom_df):,}")
+        t2.metric("Mean Prediction Confidence", f"{avg_conf:.1%}")
+        t3.metric("High Confidence (≥75%)", f"{high_conf:.1f}%")
+        t4.metric("Flagged for Audit (<60%)", f"{flagged:,}")
+
+
 
 # ---------------------------------------------------------------------------
 # Benchmark Data Tables

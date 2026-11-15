@@ -59,7 +59,13 @@ def get_cleaned_data():
     raw = load_complaints()
     return clean_complaints(raw)
 
-df = get_cleaned_data()
+from src.utils.dataset_manager import render_dataset_dropdown, ensure_dataset_schema
+
+custom_df, is_custom, custom_name = render_dataset_dropdown(page_key="trend_analytics")
+if is_custom and custom_df is not None:
+    df = ensure_dataset_schema(custom_df)
+else:
+    df = get_cleaned_data()
 
 
 # ---------------------------------------------------------------------------

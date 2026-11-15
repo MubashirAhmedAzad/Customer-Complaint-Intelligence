@@ -93,14 +93,14 @@ with tab_single:
                     with st.container(border=True):
                         st.markdown("##### Primary Issue Category (Tier 1)")
                         st.subheader(h_res["issue"])
-                        st.progress(min(1.0, float(h_res["issue_confidence"])))
+                        st.progress(max(0.0, min(1.0, float(h_res["issue_confidence"]))))
                         st.caption(f"Model Confidence: {h_res['issue_confidence']:.2%}")
 
                 with col_res2:
                     with st.container(border=True):
                         st.markdown("##### Granular Sub-Issue (Tier 2)")
                         st.subheader(h_res["sub_issue"])
-                        st.progress(min(1.0, float(h_res["sub_issue_confidence"])))
+                        st.progress(max(0.0, min(1.0, float(h_res["sub_issue_confidence"]))))
                         st.caption(f"Model Confidence: {h_res['sub_issue_confidence']:.2%}")
 
                 with col_res3:
@@ -147,7 +147,11 @@ with tab_batch:
     uploaded_file = st.file_uploader("Upload CSV file:", type=["csv"])
 
     if uploaded_file is not None:
-        batch_df = pd.read_csv(uploaded_file)
+        try:
+            batch_df = pd.read_csv(uploaded_file)
+        except UnicodeDecodeError:
+            uploaded_file.seek(0)
+            batch_df = pd.read_csv(uploaded_file, encoding="latin1")
         st.write(f"Loaded file with {len(batch_df):,} rows and columns: {list(batch_df.columns)}")
 
         # Select narrative column
@@ -155,7 +159,9 @@ with tab_batch:
         default_col = narr_candidates[0] if narr_candidates else batch_df.columns[0]
         text_column = st.selectbox("Select Complaint Text Column:", batch_df.columns, index=batch_df.columns.get_loc(default_col))
 
-        if st.button("🚀 Run Bulk Classification", type="primary"):
+        run_clicked = st.button("🚀 Run Bulk Classification", type="primary")
+
+        if run_clicked:
             with st.spinner(f"Categorizing {len(batch_df):,} records..."):
                 texts = batch_df[text_column].astype(str).tolist()
 
@@ -167,15 +173,108 @@ with tab_batch:
                 batch_df["predicted_sub_issue"] = sub_preds["predicted_sub_issue"]
                 batch_df["sub_issue_confidence"] = sub_preds["confidence"].round(3)
 
-                st.success("Bulk classification complete!")
-                st.dataframe(batch_df.head(20), height=350)
+                st.session_state["batch_results_df"] = batch_df
+                st.session_state["batch_file_name"] = uploaded_file.name
 
-                # Download categorized CSV
-                csv_bytes = batch_df.to_csv(index=False).encode("utf-8")
+        # Render analytics and results if available in session
+        if "batch_results_df" in st.session_state and st.session_state["batch_results_df"] is not None:
+            res_df = st.session_state["batch_results_df"]
+            fname = st.session_state.get("batch_file_name", "test_dataset.csv")
+
+            st.success(f"✅ Bulk classification complete for {len(res_df):,} records from `{fname}`!")
+
+            # Quick Actions: Set as Active Dataset & Download
+            col_apply, col_dl = st.columns([1, 1])
+            with col_apply:
+                if st.button("📊 Set as Active Application Dataset", use_container_width=True):
+                    clean_df = res_df.copy()
+                    if "complaint_narrative" not in clean_df.columns and text_column in clean_df.columns:
+                        clean_df["complaint_narrative"] = clean_df[text_column]
+                    if "issue" not in clean_df.columns and "predicted_issue" in clean_df.columns:
+                        clean_df["issue"] = clean_df["predicted_issue"]
+                    if "sub_issue" not in clean_df.columns and "predicted_sub_issue" in clean_df.columns:
+                        clean_df["sub_issue"] = clean_df["predicted_sub_issue"]
+                    if "resolution_status" not in clean_df.columns:
+                        clean_df["resolution_status"] = "In review"
+                    if "sentiment_label" not in clean_df.columns:
+                        clean_df["sentiment_label"] = "Negative"
+                    if "company" not in clean_df.columns:
+                        clean_df["company"] = "Sample Institution"
+                    if "product" not in clean_df.columns:
+                        clean_df["product"] = "Credit card"
+                    if "date_received" not in clean_df.columns:
+                        clean_df["date_received"] = pd.Timestamp.now()
+                    if "channel" not in clean_df.columns:
+                        clean_df["channel"] = "Web"
+                    if "complaint_id" not in clean_df.columns:
+                        clean_df["complaint_id"] = [f"TEST-{i+1:05d}" for i in range(len(clean_df))]
+
+                    st.session_state["custom_test_df"] = clean_df
+                    st.session_state["custom_test_name"] = fname
+                    st.session_state["active_custom_df"] = clean_df
+                    st.session_state["active_dataset_name"] = fname
+                    st.session_state["selected_dataset_option"] = f"🧪 Test Data: {fname} ({len(clean_df):,} records)"
+                    for pk in ["main", "dashboard", "classification", "sentiment", "clustering", "root_cause", "trend_analytics", "ai_assistant", "model_eval"]:
+                        st.session_state[f"dataset_selector_{pk}"] = st.session_state["selected_dataset_option"]
+                    st.toast("Active dataset updated across all pages!", icon="🚀")
+                    st.success("🎉 Test dataset is now active across all application pages! Use the **Active Dataset dropdown** at the top of any page to switch between datasets.")
+
+            with col_dl:
+                csv_bytes = res_df.to_csv(index=False).encode("utf-8")
                 st.download_button(
                     label="📥 Download Categorized CSV",
                     data=csv_bytes,
                     file_name="categorized_complaints.csv",
                     mime="text/csv",
+                    use_container_width=True,
                 )
+
+            # Summary KPI Cards
+            st.markdown("---")
+            st.markdown("### 📈 Test Dataset Prediction Summary")
+            m1, m2, m3, m4 = st.columns(4)
+            avg_conf = res_df["issue_confidence"].mean() if "issue_confidence" in res_df.columns else 0.0
+            high_conf_pct = (res_df["issue_confidence"] >= 0.75).mean() * 100 if "issue_confidence" in res_df.columns else 0.0
+            flagged_cnt = (res_df["issue_confidence"] < 0.60).sum() if "issue_confidence" in res_df.columns else 0
+
+            m1.metric("Total Records", f"{len(res_df):,}")
+            m2.metric("Avg Issue Confidence", f"{avg_conf:.1%}")
+            m3.metric("High Confidence (≥75%)", f"{high_conf_pct:.1f}%")
+            m4.metric("Flagged for Audit (<60%)", f"{flagged_cnt:,}", delta="Needs Review" if flagged_cnt > 0 else "All Confident", delta_color="inverse")
+
+            # Analytical Visualizations
+            cg1, cg2 = st.columns(2)
+            with cg1:
+                st.markdown("##### Top 10 Predicted Issue Categories")
+                top_issues = res_df["predicted_issue"].value_counts().head(10).reset_index()
+                top_issues.columns = ["Issue", "Count"]
+                fig_top_issues = px.bar(
+                    top_issues,
+                    x="Count",
+                    y="Issue",
+                    orientation="h",
+                    color="Count",
+                    color_continuous_scale="Viridis",
+                    height=350,
+                )
+                fig_top_issues.update_layout(yaxis=dict(autorange="reversed"), margin=dict(l=10, r=10, t=20, b=20))
+                st.plotly_chart(fig_top_issues, use_container_width=True)
+
+            with cg2:
+                st.markdown("##### Prediction Confidence Distribution")
+                fig_conf = px.histogram(
+                    res_df,
+                    x="issue_confidence",
+                    nbins=20,
+                    color_discrete_sequence=["#3498db"],
+                    labels={"issue_confidence": "Confidence Score"},
+                    height=350,
+                )
+                fig_conf.add_vline(x=0.60, line_dash="dash", line_color="red", annotation_text="60% Threshold")
+                fig_conf.update_layout(margin=dict(l=10, r=10, t=20, b=20))
+                st.plotly_chart(fig_conf, use_container_width=True)
+
+            # Table Browser
+            st.markdown("##### 📑 Classified Records Preview")
+            st.dataframe(res_df.head(50), use_container_width=True, height=350)
 
